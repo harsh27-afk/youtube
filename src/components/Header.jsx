@@ -1,11 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggle } from "../utils/appSlice";
+import { YT_SEARCH_API } from "../utils/constants";
 
 
 const Header=()=>{
 
+  const[searchQuery,setSearchQuery]=useState("");
   const dispatch=useDispatch();
+
+  const getSuggestion=async()=>{
+    const data=await fetch(YT_SEARCH_API);
+    const json=await data.json();
+    console.log(json);
+    
+  }
+
+  useEffect(()=>{
+    getSuggestion();
+  },[searchQuery])
+
+  console.log(searchQuery);
+  
 
   const toggleHandler=()=>{
     dispatch(toggle());  
@@ -22,7 +38,7 @@ const Header=()=>{
         </div>
 
         <div className="middle-part">
-             <input  type="text" className="border border-black rounded-l-full w-[450px] mt p-1 pl-[20px]" />
+             <input value={searchQuery} onChange={(e)=> setSearchQuery(e.target.value)}  type="text" className="border border-black rounded-l-full w-[450px] mt p-1 pl-[20px]" />
              <button className="bg-slate-200 text-black px-[10px] py-[5px] rounded-r-full" >Search</button>
         </div>
 
