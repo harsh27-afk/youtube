@@ -14,7 +14,7 @@ const ButtonList = () => {
 
      }
 
-     {/* <Button name={"All"}/> */}
+     
     </div>
   )
 }
